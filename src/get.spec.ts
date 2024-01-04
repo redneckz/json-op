@@ -14,6 +14,6 @@ describe('get', () => {
   });
 
   it('should return null if nothing found', () => {
-    expect(get({ foo: 123 }, ['foo', 0])).toBe(null);
+    expect(get({ foo: 123 }, ['foo', 0])).toBe(undefined);
   });
 });

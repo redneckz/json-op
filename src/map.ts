@@ -1,5 +1,6 @@
+import { type JSONEntry } from './JSONEntry';
 import { type JSONNode } from './JSONNode';
-import { entries, type JSONEntry } from './entries';
+import { entries } from './entries';
 import { fromEntries } from './fromEntries';
 
 export type JSONMapper = (entry: JSONEntry) => JSONEntry;

@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { isJSONArray, isJSONRecord, type JSONNode } from './JSONNode';
+import { type JSONNode } from './JSONNode';
 import { ROOT } from './JSONPath';
+import { ancestors } from './ancestors';
+import { last } from './fp/last';
 
-export const get = (target: JSONNode, path = ROOT): JSONNode =>
-  path.reduce((res, p) => (isJSONArray(res) || isJSONRecord(res) ? (res as any)[p] : null), target);
+export const get = (target: JSONNode, path = ROOT): JSONNode | undefined => last(ancestors(target, path));

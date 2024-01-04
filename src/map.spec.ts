@@ -1,4 +1,4 @@
-import { JSONEntry } from './entries';
+import { type JSONEntry } from './JSONEntry';
 import { map } from './map';
 
 describe('map', () => {

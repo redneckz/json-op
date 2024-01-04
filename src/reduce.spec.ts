@@ -8,8 +8,8 @@ describe('reduce', () => {
     const reducer = jest.fn(_ => _);
 
     expect(reduce(reducer)({ foo: [123] }, 123)).toBe(123);
-    expect(reducer).toHaveBeenCalledWith(123, { foo: [123] }, ROOT);
-    expect(reducer).toHaveBeenCalledWith(123, [123], ['foo']);
-    expect(reducer).toHaveBeenCalledWith(123, 123, ['foo', 0]);
+    expect(reducer).toHaveBeenCalledWith(123, [ROOT, { foo: [123] }]);
+    expect(reducer).toHaveBeenCalledWith(123, [['foo'], [123]]);
+    expect(reducer).toHaveBeenCalledWith(123, [['foo', 0], 123]);
   });
 });
