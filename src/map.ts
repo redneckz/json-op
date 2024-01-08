@@ -1,14 +1,14 @@
 import { type JSONEntry } from './JSONEntry';
 import { type JSONNode } from './JSONNode';
-import { entries } from './entries';
+import { leafs } from './entries';
 import { fromEntries } from './fromEntries';
 
 export type JSONMapper = (entry: JSONEntry) => JSONEntry;
 
 export const map =
-  (mapper: JSONMapper) =>
+  (mapper: JSONMapper, initial: JSONNode = {}) =>
   (node: JSONNode): JSONNode =>
     fromEntries(
-      entries(node).map(_ => mapper(_)),
-      {}
+      leafs(node).map(_ => mapper(_)),
+      initial
     );
