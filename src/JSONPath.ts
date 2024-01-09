@@ -17,4 +17,4 @@ export const startsWith =
 export const endsWith =
   (suffix: JSONPath) =>
   (path: JSONPath): boolean =>
-    startsWith(suffix.toReversed())(path.toReversed());
+    suffix.length <= path.length && suffix.every((pi, i) => pi === path[i + path.length - suffix.length]);

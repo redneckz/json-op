@@ -6,9 +6,10 @@ export * as JSONPath from './JSONPath';
 export { entries, leafs } from './entries';
 export { fromEntries } from './fromEntries';
 
-export { map } from './map';
+export { map, type JSONMapper } from './map';
 
 export { ancestors } from './ancestors';
+export { parent } from './parent';
 
 export { find } from './find';
 

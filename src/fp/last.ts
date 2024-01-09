@@ -1,1 +1,1 @@
-export const last = <T>(list: [T, ...T[]]): T => list[list.length - 1];
+export const last = <T>(list: [T, ...T[]] | [...T[], T]): T => list[list.length - 1];
