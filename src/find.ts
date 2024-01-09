@@ -1,5 +1,5 @@
 import { type JSONEntry } from './JSONEntry';
-import { JSONNode } from './JSONNode';
+import { type JSONNode } from './JSONNode';
 import { entries } from './entries';
 
 export const find =

@@ -3,7 +3,7 @@ export * from './JSONEntry';
 export * from './JSONNode';
 export * as JSONPath from './JSONPath';
 
-export { entries } from './entries';
+export { entries, leafs } from './entries';
 export { fromEntries } from './fromEntries';
 
 export { map } from './map';
@@ -22,4 +22,5 @@ export { merge } from './merge';
 
 export { reduce } from './reduce';
 
-export * as async from './async';
+export * as async from './async/index';
+export * as fp from './fp/index';
