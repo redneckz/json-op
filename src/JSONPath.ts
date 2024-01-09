@@ -3,6 +3,9 @@ export type JSONPath = JSONPathElement[];
 
 export const ROOT: JSONPath = [];
 export const isRoot = (_: JSONPath): _ is [] => !_?.length;
+export const isNotRoot = (
+  _: JSONPath
+): _ is [JSONPathElement, ...JSONPathElement[]] | [...JSONPathElement[], JSONPathElement] => Boolean(_?.length);
 
 export const equals =
   (a: JSONPath) =>
