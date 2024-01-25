@@ -1,7 +1,8 @@
-import { DEFAULT_DISCRIMINATOR } from './JSONDiscriminator';
 import { type JSONEntry } from './JSONEntry';
 import { type JSONNode } from './JSONNode';
+import { type JSONBox } from './JSONBox/index';
 import { leafs } from './entries';
+import { get } from './get';
 
-export const diff = (source: JSONNode, target: JSONNode, discriminator = DEFAULT_DISCRIMINATOR): JSONEntry[] =>
-  leafs(target).filter(([path, _]: JSONEntry) => discriminator(target, path)(source)[1] !== _);
+export const diff = (source: JSONNode | JSONBox | undefined, target: JSONNode | JSONBox | undefined): JSONEntry[] =>
+  leafs(target).filter(([path, _]: JSONEntry) => get(source, path) !== _);

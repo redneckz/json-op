@@ -1,4 +1,4 @@
-export * from './JSONDiscriminator';
+export * from './JSONBox/index';
 export * from './JSONEntry';
 export * from './JSONNode';
 export * as JSONPath from './JSONPath';
@@ -8,7 +8,6 @@ export { fromEntries } from './fromEntries';
 
 export { map, type JSONMapper } from './map';
 
-export { ancestors } from './ancestors';
 export { parent } from './parent';
 
 export { find } from './find';

@@ -1,6 +1,4 @@
-import { type JSONNode } from './JSONNode';
-import { ROOT } from './JSONPath';
-import { ancestors } from './ancestors';
-import { last } from './fp/last';
+import { boxed, type JSONBox } from './JSONBox/index';
+import { ROOT, type JSONPath } from './JSONPath';
 
-export const get = (target: JSONNode, path = ROOT): JSONNode | undefined => last(ancestors(target, path));
+export const get = boxed((target: JSONBox, path: JSONPath = ROOT): JSONBox => path.reduce((_, p) => _.get(p), target));
