@@ -5,11 +5,11 @@ describe('map', () => {
   const doubleNumbers = ([path, n]: JSONEntry): JSONEntry => [path, typeof n === 'number' ? 2 * n : n];
 
   it('should map scalars by means of mapper function', () => {
-    expect(map(doubleNumbers)(123)).toEqual(2 * 123);
+    expect(map(doubleNumbers, 0)(123)).toEqual(2 * 123);
   });
 
   it('should map arrays by means of mapper function', () => {
-    expect(map(doubleNumbers)([123, 456])).toEqual([2 * 123, 2 * 456]);
+    expect(map(doubleNumbers, [])([123, 456])).toEqual([2 * 123, 2 * 456]);
   });
 
   it('should map object values by means of mapper function', () => {

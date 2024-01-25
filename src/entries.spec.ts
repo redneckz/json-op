@@ -15,8 +15,8 @@ describe('entries', () => {
     ]);
   });
 
-  it('should return the only entry if simple node (leaf) is provided', () => {
-    expect(entries('foo')).toEqual([[ROOT, 'foo']]);
+  it('should return the only leaf for scalar node', () => {
+    expect(entries(123)).toEqual([[ROOT, 123]]);
   });
 
   describe('leafs', () => {
@@ -30,6 +30,10 @@ describe('entries', () => {
         [['plugh'], plugh],
         [['nil'], null]
       ]);
+    });
+
+    it('should return the only leaf for scalar node', () => {
+      expect(leafs(123)).toEqual([[ROOT, 123]]);
     });
   });
 });
