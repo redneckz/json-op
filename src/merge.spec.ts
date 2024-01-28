@@ -22,7 +22,7 @@ describe('merge', () => {
     ]);
   });
 
-  describe('with custom JSONBox', () => {
+  describe('with custom JSONBox that overrides JSONArray indexing', () => {
     class Box extends JSONBoxDefault {
       static readonly ID_PREFIX = 'id:';
       static id = (node: JSONNode | undefined): string | undefined =>

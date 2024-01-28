@@ -1,5 +1,5 @@
 import { JSONBoxDefault, type JSONBox } from './JSONBox/index';
-import { isJSONArray, isJSONRecord, type JSONNode } from './JSONNode';
+import { isJSONArray, isJSONRecord, isJSONScalar, type JSONArray, type JSONNode } from './JSONNode';
 import { JSONPathElement } from './JSONPath';
 import { diff } from './diff';
 import { pair } from './fp/index';
@@ -29,7 +29,7 @@ describe('diff', () => {
     expect(diff(original, modified)).toEqual([pair(['a', 1], 5)]);
   });
 
-  describe('with custom JSONBox', () => {
+  describe('with custom JSONBox that overrides JSONArray indexing', () => {
     class Box extends JSONBoxDefault {
       static readonly ID_PREFIX = 'id:';
       static id = (node: JSONNode | undefined): string | undefined =>
@@ -95,6 +95,38 @@ describe('diff', () => {
         pair(['a', `${Box.ID_PREFIX}new`, 'id'], 'new'),
         pair(['a', `${Box.ID_PREFIX}new`, 'foo'], 'new')
       ]);
+    });
+  });
+
+  describe('with custom JSONBox that overrides leafs traversing strategy', () => {
+    const isScalarArray = (node: JSONNode | undefined): node is JSONArray =>
+      isJSONArray(node) && node.every(isJSONScalar);
+    class Box extends JSONBoxDefault {
+      entries(): Array<[p: JSONPathElement, child: JSONBox]> {
+        return isScalarArray(this._) ? [] : super.entries();
+      }
+      size(): number {
+        return isScalarArray(this._) ? 0 : super.size();
+      }
+    }
+
+    it('should respect custom JSONBox', () => {
+      expect(
+        diff(
+          new Box({
+            a: [
+              { id: '123', foo: [1, 2, 3] },
+              { id: '456', bar: 456 }
+            ]
+          }),
+          new Box({
+            a: [
+              { id: '123', foo: [4, 5, 6] },
+              { id: '456', bar: 456 }
+            ]
+          })
+        )
+      ).toEqual([pair(['a', 0, 'foo'], [4, 5, 6])]);
     });
   });
 });
