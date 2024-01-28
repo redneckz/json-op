@@ -6,11 +6,13 @@ export class JSONArrayBox extends JSONBox<JSONArray> {
   entries(): [p: JSONPathElement, child: JSONBox][] {
     return (this._ ?? []).map((node, p) => [p, this.of(node)]);
   }
+  size() {
+    return this._?.length ?? 0;
+  }
 
   get(p?: JSONPathElement | undefined): JSONBox {
     return this.of(typeof p === 'number' ? this._?.[p] : undefined);
   }
-
   set(p: JSONPathElement | undefined, child: JSONNode): JSONBox {
     return this.of(
       isJSONArray(this._)

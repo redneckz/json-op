@@ -5,6 +5,7 @@ export abstract class JSONBox<N extends JSONNode = JSONNode> {
   constructor(readonly _?: N | undefined) {}
 
   abstract entries(): Array<[p: JSONPathElement, child: JSONBox]>;
+  abstract size(): number;
 
   abstract get(p?: JSONPathElement | undefined): JSONBox;
   abstract set(p: JSONPathElement | undefined, child: JSONNode): JSONBox;

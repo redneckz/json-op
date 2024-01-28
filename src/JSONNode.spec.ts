@@ -1,4 +1,4 @@
-import { isJSONScalar, isJSONRecord, isJSONLeaf } from './JSONNode';
+import { isJSONScalar, isJSONRecord } from './JSONNode';
 
 describe('JSONNode', () => {
   describe('isJSONScalar', () => {
@@ -30,27 +30,6 @@ describe('JSONNode', () => {
 
     it('should return false if null is provided', () => {
       expect(isJSONRecord(null)).toBe(false);
-    });
-  });
-
-  describe('isJSONLeaf', () => {
-    it('should return true if scalar is provided', () => {
-      expect.assertions(3);
-      expect(isJSONLeaf('')).toBe(true);
-      expect(isJSONLeaf(0)).toBe(true);
-      expect(isJSONLeaf(false)).toBe(true);
-    });
-
-    it('should return true if empty object is provided', () => {
-      expect.assertions(2);
-      expect(isJSONLeaf({})).toBe(true);
-      expect(isJSONLeaf({ foo: 123 })).toBe(false);
-    });
-
-    it('should return true if empty array is provided', () => {
-      expect.assertions(2);
-      expect(isJSONLeaf([])).toBe(true);
-      expect(isJSONLeaf([123])).toBe(false);
     });
   });
 });

@@ -1,7 +1,7 @@
 import { type JSONBox } from './JSONBox/index';
 import { type JSONNode } from './JSONNode';
 import { startsWith, type JSONPath } from './JSONPath';
-import { leafs } from './entries';
+import { leafs } from './leafs';
 import { not, t0 } from './fp/index';
 import { fromEntries } from './fromEntries';
 

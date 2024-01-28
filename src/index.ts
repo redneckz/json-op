@@ -3,8 +3,9 @@ export * from './JSONEntry';
 export * from './JSONNode';
 export * as JSONPath from './JSONPath';
 
-export { entries, leafs } from './entries';
+export { entries } from './entries';
 export { fromEntries } from './fromEntries';
+export { leafs } from './leafs';
 
 export { map, type JSONMapper } from './map';
 
