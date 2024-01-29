@@ -32,25 +32,25 @@ describe('diff', () => {
   describe('with custom JSONBox that overrides JSONArray indexing', () => {
     class Box extends JSONBoxDefault {
       static readonly ID_PREFIX = 'id:';
-      static id = (node: JSONNode | undefined): string | undefined =>
-        isJSONRecord(node) && 'id' in node ? `${Box.ID_PREFIX}${node.id}` : undefined;
+
+      static nodeId = (node: JSONNode | undefined): string | undefined =>
+        isJSONRecord(node) && 'id' in node ? (node.id as string) : undefined;
+      static keyToId = (p: JSONPathElement | undefined): string | undefined =>
+        typeof p === 'string' && p.startsWith(Box.ID_PREFIX) ? p.substring(Box.ID_PREFIX.length) : undefined;
 
       entries(): Array<[p: JSONPathElement, child: JSONBox]> {
         return isJSONArray(this._)
-          ? this._.map((node, i) => [Box.id(node) ? Box.id(node)! : i, new Box(node)])
+          ? this._.map((node, i) => [Box.nodeId(node) ? `${Box.ID_PREFIX}${Box.nodeId(node)}` : i, new Box(node)])
           : super.entries();
       }
 
       get(p?: JSONPathElement): JSONBox {
-        return super.get(this.findIndexById(p));
+        const id = Box.keyToId(p);
+        return super.get(id ? this.findIndexById(id) : p);
       }
 
-      private findIndexById(p: JSONPathElement | undefined): JSONPathElement | undefined {
-        if (typeof p === 'string' && p.startsWith(Box.ID_PREFIX) && isJSONArray(this._)) {
-          const index = this._.findIndex(node => p === Box.id(node));
-          return index >= 0 ? index : this._.length;
-        }
-        return p;
+      private findIndexById(id: string | undefined): number | -1 {
+        return id && isJSONArray(this._) ? this._.findIndex(node => id === Box.nodeId(node)) : -1;
       }
     }
 
