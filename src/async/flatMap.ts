@@ -5,9 +5,9 @@ import { fromEntries } from '../fromEntries';
 import { leafs } from '../leafs';
 import { fulfilled } from './fulfilled';
 
-export type JSONMapper = (entry: JSONEntry) => JSONEntry | Promise<JSONEntry>;
+export type JSONMapper = (entry: JSONEntry) => JSONEntry[] | Promise<JSONEntry[]>;
 
-export const map =
+export const flatMap =
   (mapper: JSONMapper, initial: JSONNode | JSONBox = {}) =>
   async (node: JSONNode | JSONBox | undefined): Promise<JSONNode> =>
-    fromEntries(initial, await fulfilled(leafs(node).map(_ => mapper(_))));
+    fromEntries(initial, (await fulfilled(leafs(node).map(_ => mapper(_)))).flat());

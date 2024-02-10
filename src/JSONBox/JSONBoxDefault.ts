@@ -1,10 +1,11 @@
+import { trueF } from '../fp/Predicate';
+import { table } from '../fp/table';
 import { isJSONArray, isJSONRecord, type JSONNode } from '../JSONNode';
 import { type JSONPathElement } from '../JSONPath';
-import { table, trueF } from '../fp/index';
 import { JSONArrayBox } from './JSONArrayBox';
 import { JSONBox } from './JSONBox';
-import { JSONRecordBox } from './JSONRecordBox';
 import { JSONLeafBox } from './JSONLeafBox';
+import { JSONRecordBox } from './JSONRecordBox';
 
 export class JSONBoxDefault<N extends JSONNode = JSONNode> extends JSONBox<N> {
   private readonly proto = table<[p: JSONPathElement | undefined], JSONBox>(

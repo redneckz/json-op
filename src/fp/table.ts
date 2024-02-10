@@ -1,6 +1,5 @@
-import { Predicate } from './Predicate';
-import { Unit } from './Unit';
-import { trueF } from './trueF';
+import { trueF, type Predicate } from './Predicate';
+import { type Unit } from './Unit';
 
 type TableEntry<Input extends [unknown, ...unknown[]], Output> = [Predicate<Input>, Unit<Input, Output>];
 
