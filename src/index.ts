@@ -7,6 +7,7 @@ export { entries } from './entries';
 export { fromEntries } from './fromEntries';
 export { leafs } from './leafs';
 
+export { flatMap } from './flatMap';
 export { map, type JSONMapper } from './map';
 
 export { parent } from './parent';

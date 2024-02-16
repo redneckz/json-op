@@ -1,3 +1,5 @@
+import { Predicate, and, trueF } from './fp/Predicate';
+
 export type JSONPathElement = string | number;
 export type JSONPath = JSONPathElement[];
 
@@ -12,12 +14,13 @@ export const equals =
   (b: JSONPath): boolean =>
     a.length === b.length && a.every((ai, i) => ai === b[i]);
 
-export const startsWith =
-  (prefix: JSONPath) =>
-  (path: JSONPath): boolean =>
-    prefix.length <= path.length && prefix.every((pi, i) => pi === path[i]);
+export const startsWith = (prefix: Array<JSONPathElement | Predicate<[JSONPathElement]>>) =>
+  prefix.map((predicate, i) => (path: JSONPath) => cmp(predicate)(path[i])).reduceRight(and, trueF);
 
-export const endsWith =
-  (suffix: JSONPath) =>
-  (path: JSONPath): boolean =>
-    suffix.length <= path.length && suffix.every((pi, i) => pi === path[i + path.length - suffix.length]);
+export const endsWith = (suffix: Array<JSONPathElement | Predicate<[JSONPathElement]>>) =>
+  suffix
+    .map((predicate, i) => (path: JSONPath) => cmp(predicate)(path[i + path.length - suffix.length]))
+    .reduceRight(and, trueF);
+
+const cmp = (a: JSONPathElement | Predicate<[JSONPathElement]>) =>
+  a instanceof Function ? a : (b: JSONPathElement) => a === b;
