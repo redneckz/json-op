@@ -1,4 +1,5 @@
 export * as Predicate from './Predicate';
+export { compose } from './compose';
 export { identity } from './identity';
 export { init } from './init';
 export { last } from './last';

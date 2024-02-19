@@ -18,7 +18,6 @@ export { get } from './get';
 export { set } from './set';
 
 export { remove } from './remove';
-export { removeAll } from './removeAll';
 
 export { diff } from './diff';
 export { merge } from './merge';

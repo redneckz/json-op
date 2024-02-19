@@ -3,7 +3,7 @@ import { table } from '../fp/table';
 import { isJSONArray, isJSONRecord, type JSONNode } from '../JSONNode';
 import { type JSONPathElement } from '../JSONPath';
 import { JSONArrayBox } from './JSONArrayBox';
-import { JSONBox } from './JSONBox';
+import { JSONBox, JSONBoxEntry } from './JSONBox';
 import { JSONLeafBox } from './JSONLeafBox';
 import { JSONRecordBox } from './JSONRecordBox';
 
@@ -14,6 +14,9 @@ export class JSONBoxDefault<N extends JSONNode = JSONNode> extends JSONBox<N> {
     [trueF, () => JSONLeafBox.prototype]
   );
 
+  from(entries: JSONBoxEntry<JSONNode | JSONBox>[]) {
+    return this.proto(undefined).from.call(this, entries) as JSONBox<N>;
+  }
   entries() {
     return this.proto(undefined).entries.call(this);
   }
@@ -24,7 +27,7 @@ export class JSONBoxDefault<N extends JSONNode = JSONNode> extends JSONBox<N> {
   get(p?: JSONPathElement | undefined) {
     return this.proto(p).get.call(this, p);
   }
-  set(p: JSONPathElement | undefined, child: JSONNode) {
-    return this.proto(p).set.call(this, p, child);
+  set(p: JSONPathElement | undefined, child: JSONNode): JSONBox<N> {
+    return this.proto(p).set.call(this, p, child) as JSONBox<N>;
   }
 }

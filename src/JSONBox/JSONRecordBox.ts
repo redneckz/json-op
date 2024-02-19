@@ -1,9 +1,13 @@
 import { type JSONNode, type JSONRecord } from '../JSONNode';
-import { JSONPathElement } from '../JSONPath';
-import { JSONBox } from './JSONBox';
+import { type JSONPathElement } from '../JSONPath';
+import { JSONBox, type JSONBoxEntry } from './JSONBox';
+import { unbox } from './boxed';
 
 export class JSONRecordBox extends JSONBox<JSONRecord> {
-  entries(): [p: JSONPathElement, child: JSONBox][] {
+  from(entries: JSONBoxEntry<JSONNode | JSONBox>[]): JSONBox<JSONRecord> {
+    return this.of(Object.fromEntries(entries.map(([p, box]): [JSONPathElement, JSONNode] => [p, unbox(box)])));
+  }
+  entries(): JSONBoxEntry[] {
     return Object.entries(this._ ?? {}).map(([p, node]) => [p, this.of(node)]);
   }
   size() {
@@ -13,7 +17,7 @@ export class JSONRecordBox extends JSONBox<JSONRecord> {
   get(p?: JSONPathElement | undefined): JSONBox {
     return this.of(typeof p === 'string' ? this._?.[p] : undefined);
   }
-  set(p: JSONPathElement | undefined, child: JSONNode): JSONBox {
+  set(p: JSONPathElement | undefined, child: JSONNode): JSONBox<JSONRecord> {
     return this.of({ ...this._, [p as string]: child });
   }
 }

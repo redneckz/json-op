@@ -1,13 +1,7 @@
-import { type JSONBox } from './JSONBox/index';
-import { type JSONNode } from './JSONNode';
-import { startsWith, type JSONPath } from './JSONPath';
-import { not } from './fp/Predicate';
-import { t0 } from './fp/tuple';
-import { fromEntries } from './fromEntries';
-import { leafs } from './leafs';
+import { boxed, type JSONBox } from './JSONBox/index';
+import { type JSONPath } from './JSONPath';
 
-export const remove = (
-  target: JSONNode | JSONBox | undefined,
-  path: JSONPath,
-  initial: JSONNode | JSONBox = {}
-): JSONNode => fromEntries(initial, leafs(target).filter(t0(not(startsWith(path)))));
+export const remove = boxed(
+  (target: JSONBox, [p, ...tail]: JSONPath): JSONBox =>
+    tail.length ? target.set(p, remove(target.get(p), tail)) : target.filter(([i]) => i !== p)
+);
