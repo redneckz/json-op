@@ -1,4 +1,4 @@
-export type JSONNull = null;
+export type JSONNull = null | undefined;
 
 export type JSONScalar = string | number | boolean;
 

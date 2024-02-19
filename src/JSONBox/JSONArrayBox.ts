@@ -17,7 +17,7 @@ export class JSONArrayBox extends JSONBox<JSONArray> {
     return this.of(
       isJSONArray(this._)
         ? Array.from({ length: Math.max(this._.length, Number(p) + 1) }, (x, i) => (i === p ? child : this._![i]))
-        : Array.from({ length: Number(p) + 1 }, (x, i) => (i === p ? child : null))
+        : Array.from({ length: Number(p) + 1 }, (x, i) => (i === p ? child : undefined))
     );
   }
 }
