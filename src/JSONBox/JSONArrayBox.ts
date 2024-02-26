@@ -2,7 +2,7 @@ import { isJSONArray, type JSONArray, type JSONNode } from '../JSONNode';
 import { JSONPathElement } from '../JSONPath';
 import { t1 } from '../fp/tuple';
 import { JSONBox, type JSONBoxEntry } from './JSONBox';
-import { unbox } from './boxed';
+import { unbox } from './unbox';
 
 export class JSONArrayBox extends JSONBox<JSONArray> {
   from(entries: JSONBoxEntry<JSONNode | JSONBox>[]): JSONBox<JSONArray> {

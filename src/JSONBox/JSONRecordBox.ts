@@ -1,7 +1,7 @@
 import { type JSONNode, type JSONRecord } from '../JSONNode';
 import { type JSONPathElement } from '../JSONPath';
 import { JSONBox, type JSONBoxEntry } from './JSONBox';
-import { unbox } from './boxed';
+import { unbox } from './unbox';
 
 export class JSONRecordBox extends JSONBox<JSONRecord> {
   from(entries: JSONBoxEntry<JSONNode | JSONBox>[]): JSONBox<JSONRecord> {
